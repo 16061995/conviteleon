@@ -771,13 +771,13 @@
         </div>
 
         <div class="form-group">
-          <label for="companions">Acompanhantes (Nome e idade se for criança)</label>
+          <label for="companions">Família (Nome e idade se for criança)</label>
           <textarea id="companions" class="form-control" placeholder="Ex: Patrícia (esposa), Gael (filho, 3 anos)... Se for sozinho, deixe em branco." maxlength="300"></textarea>
         </div>
 
         <div style="text-align: center; margin-top: 25px;">
           <button type="submit" class="btn-gold" style="font-size: 0.95rem; padding: 13px 36px;">
-            Confirmar Presença
+            Confirmar Presença/Ausência
           </button>
         </div>
       </form>
@@ -872,7 +872,27 @@
           },
           body: JSON.stringify(newEntry)
         });
+        
+        // Mensagem personalizada de acordo com a confirmação
+        const attendanceChoice = document.querySelector('input[name="attendance"]:checked').value;
+        const msgContainer = document.getElementById('successMessage');
 
+        if (attendanceChoice === 'Sim') {
+          msgContainer.innerHTML = `
+            <h3 style="font-family: 'Cinzel', serif; color: #166534;">✨ Presença Confirmada! ✨</h3>
+            <p style="margin-top: 6px; color: #166534;">A corte real agradece! O Príncipe Leon e toda a família esperam por você para celebrar este dia mágico.</p>
+          `;
+          msgContainer.style.background = "#f0fdf4";
+          msgContainer.style.borderColor = "#48bb78";
+        } else {
+          msgContainer.innerHTML = `
+            <h3 style="font-family: 'Cinzel', serif; color: #1e293b;">💌 Sentiremos Sua Falta! 💌</h3>
+            <p style="margin-top: 6px; color: #475569;">Que pena que você não poderá comparecer à nossa celebração real! Agradecemos imensamente pelo carinho e por nos avisar.</p>
+          `;
+          msgContainer.style.background = "#fef2f2";
+          msgContainer.style.borderColor = "#f87171";
+        }
+          
         if (response.ok) {
           document.getElementById('rsvpForm').style.display = 'none';
           document.getElementById('successMessage').style.display = 'block';
