@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aniversário do Príncipe Leon | Convite Real</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700&family=Pinyon+Script&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-site: #2e80ea;           /* Azul bebê informado */
+      --white: #ffffff;             /* Fundo dos cartões para quebrar o excesso de azul */
+      --text-dark: #1e293b;         /* Texto escuro e legível */
+      --text-muted: #475569;        /* Texto secundário */
+      --gold: #d4af37;              /* Dourado nobre */
+      --gold-dark: #997316;
+      --gold-gradient: linear-gradient(135deg, #d4af37, #fae082, #b8860b, #f3d463);
+      --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    /* Fundo geral exatamente com a cor informada */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-site);
+      color: var(--text-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Topo / Hero */
+    .hero {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    /* Brasão Real: Monograma com Coroa e Louros */
+    .crown-icon {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: floatCrown 3s ease-in-out infinite alternate;
+    }
+
+    .crown-icon img,
+    .crown-icon svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* Converte a cor do SVG em dourado real com sombra */
+      filter: invert(80%) sepia(60%) saturate(650%) hue-rotate(355deg) brightness(102%) contrast(100%) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
+    }
+      
+    @keyframes floatCrown {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-10px); }
+    }
+
+    .subtitle {
+      font-family: 'Cinzel Decorative', serif;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      margin-bottom: 6px;
+    }
+
+    .hero h1 {
+      font-family: 'Pinyon Script', cursive; /* Ou 'Cinzel Decorative', serif */
+      font-size: 4.2rem;                     /* Tamanho ampliado para caligrafia real */
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      margin-bottom: 8px;
+      text-transform: none;                  /* Preserva maiúsculas/minúsculas nobres */
+    }
+
+    .hero p.tagline {
+      font-size: 1.05rem;
+      color: #ffffff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      font-weight: 500;
+    }
+
+    /* Contagem Regressiva em Cartão Branco */
+    .countdown-wrapper {
+      background: var(--white);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 22px;
+      border-radius: 18px;
+      margin-bottom: 40px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .countdown-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.0rem;
+      letter-spacing: 2px;
+      color: var(--gold-dark);
+      font-weight: 700;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .countdown-box {
+      background: #f8fafc;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 10px 4px;
+      border-radius: 10px;
+    }
+
+    .countdown-box .number {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: block;
+    }
+
+    .countdown-box .label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Títulos de Seção */
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #ffffff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-bottom: 25px;
+    }
+
+    .section-title::after {
+      content: '❖';
+      display: block;
+      font-size: 0.95rem;
+      color: #fcd34d;
+      margin-top: 4px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Detalhes do Evento (Cartões Brancos) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 45px;
+    }
+
+    @media (min-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 28px 20px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+
+    .info-card .icon-wrap {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      background: #fef9e7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gold);
+    }
+
+    .info-card .icon-wrap svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--gold-dark);
+    }
+
+    .info-card h3 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .btn-gold {
+        
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-gradient);
+      color: #1e293b;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .btn-gold:hover {
+      transform: scale(1.03);
+      filter: brightness(1.05);
+    }
+
+    /* Sugestões de Presentes (Cartões Brancos) */
+    .gifts-section {
+      margin-bottom: 50px;
+    }
+
+    .gifts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .gifts-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gift-card {
+      background: var(--white);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 18px;
+      padding: 25px 18px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+
+    .gift-badge {
+      display: inline-block;
+      background: #fef9e7;
+      color: var(--gold-dark);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 14px;
+      margin-bottom: 12px;
+    }
+
+    .gift-card h3 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--text-dark);
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .gift-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: left;
+    }
+
+    .gift-items li {
+      padding: 7px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gift-items li:last-child {
+      border-bottom: none;
+    }
+
+    .gift-items li span.bullet {
+      color: var(--gold);
+      font-size: 0.85rem;
+    }
+
+    /* Formulário RSVP (Cartão Branco) */
+    .rsvp-card {
+      background: var(--white);
+      border: 2px solid rgba(212, 175, 55, 0.45);
+      padding: 38px 24px;
+      border-radius: 22px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 60px;
+    }
+
+    .rsvp-card {
+      font-family: 'Cinzel Decorative', serif;
+      text-align: center;
+      font-size: 1.7rem;
+      color: var(--text-dark);
+      margin-bottom: 22px;
+    }
+    .rsvp-card h2{
+      font-family: 'Cinzel Decorative', serif;
+      text-align: center;
+      font-size: 1.7rem;
+      color: var(--text-dark);
+      margin-bottom: 22px;
+    }
+
+    .rsvp-card h2::after {
+      content: '❖';
+      display: block;
+      font-size: 0.9rem;
+      color: var(--gold-dark);
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 13px 15px;
+      color: var(--text-dark);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--gold);
+      background: #ffffff;
+    }
+
+    textarea.form-control {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    .radio-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: #f8fafc;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+
+    .success-msg {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #48bb78;
+      color: #166534;
+      padding: 22px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Rodapé e Link Discreto */
+    footer {
+      text-align: center;
+      padding: 30px 20px 45px;
+      color: #ffffff;
+      font-size: 0.88rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .restricted-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .restricted-link:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Topo / Hero -->
+    <header class="hero">
+      <div class="crown-icon">
+        <img src="1174116.svg" alt="Brasão do Príncipe Leon">
+      </div>
+      
+      <p class="subtitle">Convocação Real</p>
+      <h1>Príncipe Leon</h1>
+      <p class="tagline">Com grande amor e alegria, convidamos você para celebrar o primeiro ano de vida e bênçãos do nosso príncipe!</p>
+
+      <!-- Contagem Regressiva -->
+      <div class="countdown-wrapper">
+        <p class="countdown-title">Faltam para o Grande Dia:</p>
+        <div class="countdown-grid">
+          <div class="countdown-box"><span class="number" id="days">00</span><span class="label">Dias</span></div>
+          <div class="countdown-box"><span class="number" id="hours">00</span><span class="label">Horas</span></div>
+          <div class="countdown-box"><span class="number" id="minutes">00</span><span class="label">Min</span></div>
+          <div class="countdown-box"><span class="number" id="seconds">00</span><span class="label">Seg</span></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Detalhes do Evento -->
+    <section>
+      <h2 class="section-title">Detalhes da Celebração</h2>
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          </div>
+          <h3>Data & Horário</h3>
+          <p><strong>09 de Janeiro de 2027<br>(Sábado)</strong></p>
+          <p>A partir das <strong>17:00h</strong></p>
+        </div>
+
+        <div class="info-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+          </div>
+          <h3>Local Real</h3>
+          <p><strong>Terraço da Gávea</strong></p>
+          <p>Estrada da Gávea 299, Rocinha - RJ</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Terra%C3%A7o+da+G%C3%A1vea+Estrada+da+G%C3%A1vea+Rio+de+Janeiro" 
+             target="_blank" rel="noopener noreferrer" class="btn-gold" style="margin-top: 8px;">
+            Ver no Google Maps
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sugestões de Presentes -->
+    <section class="gifts-section">
+      <h2 class="section-title">Sugestões de Presentes</h2>
+      <p style="text-align: center; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.2); max-width: 620px; margin: -10px auto 30px; font-size: 0.95rem; font-weight: 500;">
+        Sua presença é nosso maior tesouro! <br>Mas caso queira presentear o Príncipe Leon, deixamos algumas sugestões carinhosas:
+      </p>
+
+      <div class="gifts-grid">
+        <div class="gift-card">
+          <span class="gift-badge">Vestuário</span>
+          <h3>Roupas & Estilo</h3>
+          <ul class="gift-items">
+            <li><span class="bullet">👑</span> <strong>Roupinhas:</strong> A partir de 4 anos</li>
+            <li><span class="bullet">👑</span> Conjuntos leves e confortáveis</li>
+            <li><span class="bullet">👑</span> Camisetas, bermudinhas ou casacos</li>
+          </ul>
+        </div>
+
+        <div class="gift-card">
+          <span class="gift-badge">Passos Reais</span>
+          <h3>Calçados</h3>
+          <ul class="gift-items">
+            <li><span class="bullet">👑</span> <strong>Calçados:</strong> Tamanho 23 / 24</li>
+            <li><span class="bullet">👑</span> Tênis flexíveis para brincar</li>
+            <li><span class="bullet">👑</span> Sandálias e crocs infantis</li>
+          </ul>
+        </div>
+
+        <div class="gift-card">
+          <span class="gift-badge">Diversão</span>
+          <h3>Brinquedos</h3>
+          <ul class="gift-items">
+            <li><span class="bullet">👑</span> Blocos de montar ou Lego Jr.</li>
+            <li><span class="bullet">👑</span> Carrinhos, pistas e bonecos</li>
+            <li><span class="bullet">👑</span> Livrinhos interativos e educativos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário RSVP -->
+    <section class="rsvp-card">
+      <h2>Confirmar Presença<br>
+      <p style="text-align: center; color: #997316; font-weight: 600; font-size: 0.8rem; margin-top: -10px;">
+            (Entrada somente com nome na lista)
+        </p>
+      </h2>
+        
+      <form id="rsvpForm">
+        <div class="form-group">
+          <label>Você comparecerá?</label>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="attendance" value="Sim" checked>
+              👑 Sim, confirmo minha presença!
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attendance" value="Não">
+              Infelizmente não poderei comparecer
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="guestName">Seu Nome Completo *</label>
+          <input type="text" id="guestName" class="form-control" placeholder="Ex: Arthur Pendragon" maxlength="80" required>
+        </div>
+
+        <div class="form-group">
+          <label for="companions">Acompanhantes (Nome e idade se for criança)</label>
+          <textarea id="companions" class="form-control" placeholder="Ex: Patrícia (esposa), Gael (filho, 3 anos)... Se for sozinho, deixe em branco." maxlength="300"></textarea>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px;">
+          <button type="submit" class="btn-gold" style="font-size: 0.95rem; padding: 13px 36px;">
+            Confirmar Presença
+          </button>
+        </div>
+      </form>
+
+      <div id="successMessage" class="success-msg">
+        <h3 style="font-family: 'Cinzel Decorative', serif;">✨ Presença Registrada! ✨</h3>
+        <p id="successDetail" style="margin-top: 6px;">Seu registro foi enviado para a corte do Príncipe Leon com sucesso.</p>
+      </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+      <p style="font-family: 'Cinzel decorative', serif; font-weight: 700; font-size: 1.05rem;">Reino do Príncipe Leon</p>
+      <p style="margin-top: 4px;">Agradecemos por celebrar este dia memorável conosco!</p>
+      
+      <!-- Link Discreto para o Painel -->
+      <div>
+        <a href="confirmados.html" class="restricted-link">Acesso Restrito</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Contagem Regressiva para 09/01/2027 às 17:00
+    const targetDate = new Date('2027-01-09T17:00:00').getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff > 0) {
+        document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+      }
+    }, 1000);
+      
+    // Função de segurança: neutraliza tags maliciosas (Anti-XSS)
+      function sanitizeText(str) {
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '/': '&#x2F;' };
+        return str.replace(/[&<>"'/]/g, (match) => map[match]);
+      }
+
+    // Função de proteção Anti-XSS (limpa códigos maliciosos)
+    function sanitizeText(str) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '/': '&#x2F;' };
+      return str.replace(/[&<>"'/]/g, (match) => map[match]);
+    }
+
+    // Cole aqui o seu URL do SheetDB:
+    const SHEETDB_URL = "https://sheetdb.io/api/v1/1cxe3jgy1h9hw";
+
+    // Função de segurança Anti-XSS
+    function sanitizeText(str) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '/': '&#x2F;' };
+      return str.replace(/[&<>"'/]/g, (match) => map[match]);
+    }
+
+    // Envio seguro online para a nuvem
+    document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "A registar...";
+
+      const rawName = document.getElementById('guestName').value.trim();
+      const rawCompanions = document.getElementById('companions').value.trim();
+
+      try {
+        // Vai buscar os registos para calcular o próximo ID sequencial
+        const getRes = await fetch(SHEETDB_URL);
+        const existingData = await getRes.json();
+        const nextId = existingData.length > 0 ? Math.max(...existingData.map(g => Number(g.id) || 0)) + 1 : 1;
+
+        const newEntry = {
+          data: [{
+            id: nextId,
+            name: sanitizeText(rawName),
+            companions: rawCompanions ? sanitizeText(rawCompanions) : 'Nenhum',
+            attendance: document.querySelector('input[name="attendance"]:checked').value,
+            timestamp: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})
+          }]
+        };
+
+        // Grava na folha de cálculo online
+        const response = await fetch(SHEETDB_URL, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newEntry)
+        });
+
+        if (response.ok) {
+          document.getElementById('rsvpForm').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+        } else {
+          throw new Error('Falha ao registar presença');
+        }
+      } catch (err) {
+        alert("Ocorreu um erro ao confirmar presença. Por favor, tente novamente.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Confirmar Presença";
+      }
+    });
+  </script>
+</body>
+</html>

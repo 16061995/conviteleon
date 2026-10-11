@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Real | Gestão de Convidados do Leon</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f1f6fb;
+      color: #1b3557;
+      padding: 30px 15px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    
+    /* Tela de Login Simples */
+    #authOverlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #eaf4fc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .auth-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 360px;
+      border: 1px solid #c59b27;
+    }
+    .auth-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      text-align: center;
+      font-size: 1.1rem;
+      outline: none;
+    }
+    .btn-action {
+      background: #1b3557;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Topo do Painel */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      gap: 15px;
+    }
+    .header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      color: #1b3557;
+    }
+
+    /* Cards de Estatísticas */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 18px;
+      border-radius: 12px;
+      border-left: 5px solid #c59b27;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+    .stat-card h3 { font-size: 0.85rem; color: #64748b; text-transform: uppercase; }
+    .stat-card .val { font-size: 1.8rem; font-weight: 700; color: #1b3557; }
+
+    /* Tabela */
+    .table-responsive {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      overflow-x: auto;
+      border: 1px solid #e2e8f0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 700;
+      color: #1b3557;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+    tr:hover { background-color: #f9fbfe; }
+    
+    .id-tag {
+      background: #eaf4fc;
+      color: #1b3557;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .badge-sim {
+      background: #e6f7ec;
+      color: #166534;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .badge-nao {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #dc2626;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bloqueio com Senha -->
+  <div id="authOverlay">
+    <div class="auth-box">
+      <h2 style="font-family: 'Cinzel', serif; margin-bottom: 10px;">Acesso Restrito</h2>
+      <p style="font-size: 0.85rem; color: #64748b;">Digite o PIN para gerenciar a lista de convidados:</p>
+      <input type="password" id="pinInput" placeholder="Senha..." autofocus>
+      <button class="btn-action" onclick="checkAuth()" style="width: 100%;">Entrar</button>
+    </div>
+  </div>
+
+  <div class="container" id="adminContent" style="display: none;">
+    <div class="header">
+      <div>
+        <h1>Lista do Príncipe Leon</h1>
+        <p style="font-size: 0.85rem; color: #64748b;">Controle interno de confirmações de presença</p>
+      </div>
+      <button class="btn-action" onclick="exportToCSV()" style="background: #c59b27;">📥 Baixar Planilha (CSV)</button>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total de Cadastros</h3>
+        <div class="val" id="statTotal">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Presenças Confirmadas</h3>
+        <div class="val" id="statConfirmed" style="color: #166534;">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Ausências</h3>
+        <div class="val" id="statDeclined" style="color: #dc2626;">0</div>
+      </div>
+    </div>
+
+    <!-- Tabela de Presenças -->
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome Principal</th>
+            <th>Acompanhantes</th>
+            <th>Status</th>
+            <th>Data/Hora</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="guestsTableBody">
+          <!-- Linhas geradas via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Hash criptografado da senha '1234' (a senha permanece oculta)
+    const PIN_HASH = "a36f81f0501a061d8a31f5118ded4ef1997ac74b6cb8ad739721ba20ad36a62e";
+
+    // Função de criptografia nativa
+    async function hashString(str) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Verificação simples sem bloqueio por tempo ou tentativas
+    async function checkAuth() {
+      const entered = document.getElementById('pinInput').value;
+      const enteredHash = await hashString(entered);
+
+      if (enteredHash === PIN_HASH) {
+        document.getElementById('authOverlay').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        loadTable();
+      } else {
+        alert('Senha incorreta! Tente novamente.');
+        document.getElementById('pinInput').value = '';
+        document.getElementById('pinInput').focus();
+      }
+    }
+
+    document.getElementById('pinInput').addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') checkAuth();
+    });
+
+    const SHEETDB_URL = "https://sheetdb.io/api/v1/SUA_CHAVE_AQUI";
+
+    async function loadTable() {
+      const tbody = document.getElementById('guestsTableBody');
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #64748b; padding: 25px;">A carregar lista da corte real...</td></tr>`;
+
+      try {
+        const res = await fetch(SHEETDB_URL);
+        const guests = await res.json();
+        tbody.innerHTML = '';
+
+        let confirmedCount = 0;
+        let declinedCount = 0;
+
+        guests.forEach(guest => {
+          if (guest.attendance === 'Sim') confirmedCount++;
+          else declinedCount++;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span class="id-tag">#${guest.id}</span></td>
+            <td><strong>${guest.name}</strong></td>
+            <td>${guest.companions}</td>
+            <td>
+              <span class="${guest.attendance === 'Sim' ? 'badge-sim' : 'badge-nao'}">
+                ${guest.attendance === 'Sim' ? 'Confirmado' : 'Não comparecerá'}
+              </span>
+            </td>
+            <td style="color: #64748b; font-size: 0.8rem;">${guest.timestamp || '-'}</td>
+            <td>
+              <button class="btn-delete" onclick="deleteEntry(${guest.id})">Remover</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById('statTotal').innerText = guests.length;
+        document.getElementById('statConfirmed').innerText = confirmedCount;
+        document.getElementById('statDeclined').innerText = declinedCount;
+
+        if (guests.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8; padding: 25px;">Nenhuma confirmação registada até ao momento.</td></tr>`;
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #dc2626; padding: 25px;">Erro ao carregar dados online. Verifique a ligação com o SheetDB.</td></tr>`;
+      }
+    }
+
+    async function deleteEntry(id) {
+      if (confirm('Deseja realmente remover este convidado da lista online?')) {
+        try {
+          await fetch(`${SHEETDB_URL}/id/${id}`, { method: 'DELETE' });
+          loadTable();
+        } catch (e) {
+          alert("Erro ao eliminar registo.");
+        }
+      }
+    }
+
+    function deleteEntry(id) {
+      if (confirm('Deseja realmente remover este registro?')) {
+        let guests = JSON.parse(localStorage.getItem('leon_guests') || '[]');
+        guests = guests.filter(g => g.id !== id);
+        localStorage.setItem('leon_guests', JSON.stringify(guests));
+        loadTable();
+      }
+    }
+
+    function exportToCSV() {
+      const guests = JSON.parse(localStorage.getItem('leon_guests') || '[]');
+      if (guests.length === 0) return alert('Não há dados para exportar!');
+      
+      let csvContent = "data:text/csv;charset=utf-8,ID,Nome,Acompanhantes,Status,Data\n";
+      guests.forEach(g => {
+        csvContent += `"${g.id}","${g.name}","${g.companions}","${g.attendance}","${g.timestamp}"\n`;
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "convidados_principe_leon.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
